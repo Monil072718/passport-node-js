@@ -1,0 +1,82 @@
+<%- include('../partials/header.ejs') %>
+<div>
+  <h1 class="text-center text-white text-5xl mt-5 p-5">Blog</h1>
+</div>
+<section class="container">
+  <% if (user) { %>
+    <!-- Content visible to authenticated users -->
+    <% if (blogs.length > 0) { %>
+      <ul class="
+          relative
+          py-12
+          before:absolute before:bg-[#ebedf2]
+          dark:before:bg-[#191e3a]
+          before:bottom-0 before:left-1/2 before:top-0 before:w-[3px] before:-ml-[1.5px]
+          max-w-[900px]
+          mx-auto
+          table
+        ">
+        <% blogs.forEach((blog, i) => { %>
+          <li class="relative mb-12 before:clear-both before:table after:clear-both after:table">
+            <div class="hidden sm:block absolute bg-info border-[3px] border-[#ebedf2] dark:border-[#191e3a] w-5 h-5 rounded-full left-1/2 top-[32px] -ml-2.5 z-[1]">
+            </div>
+            <div class="
+              relative
+              border border-[#ebedf2]
+              dark:border-[#191e3a]
+              max-w-[320px]
+              mx-auto
+              sm:max-w-full
+              w-full
+              sm:w-[46%]
+              shadow-[0_20px_20px_rgba(126,142,177,0.12)]
+              rounded-md
+              bg-white
+              dark:bg-[#191e3a]
+              ltr:sm:float-left
+              rtl:sm:float-right
+              before:absolute before:bg-[#ebedf2]
+              dark:before:bg-[#191e3a]
+              before:w-[37px] before:h-[3px] before:rounded-full
+              ltr:before:-right-[37px]
+              rtl:before:-left-[37px]
+              before:top-10
+              sm:before:block
+              before:hidden
+            ">
+              <div>
+                <img src="<%= blog.image %>" alt="timeline" class="w-full rounded-t-md" height="150px" width="150px" />
+              </div>
+              <div class="p-5">
+                <h4 class="mb-3 text-info text-lg font-semibold">
+                  <%= blog.title %>
+                </h4>
+                <p class="mb-3 text-white-dark">
+                  <%= blog.description %>
+                </p>
+                <div class="flex justify-items-center items-center ">
+                  <i class="fa-regular fa-clock px-3"></i>
+                  <span class="mb-3 text-white-dark my-3">
+                    <%= blog.date %>
+                  </span>
+                </div>
+                <div class="flex justify-items-center items-center ">
+                  <i class="fa-regular fa-user px-3"></i>
+                  <span class="mb-3 text-white-dark my-3">
+                    <%= blog.username %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <h2 class="text-center">Blog Not found</h2>
+    <% } %>
+  <% } else { %>
+    <!-- Content visible to non-authenticated users -->
+    <h2 class="text-center text-white">Please <a href="/login" class="text-blue-500">login</a> to view the blog.</h2>
+  <% } %>
+</section>
+<%- include('../partials/footer.ejs') %>

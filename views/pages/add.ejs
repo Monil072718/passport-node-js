@@ -1,0 +1,77 @@
+<%- include('../partials/header.ejs') %>
+  <center>
+    <div class="container mx-auto">
+      <h1 class="text-center text-white text-5xl mt-9">Add Movie</h1>
+      <form id="form" action="/add" method="post" onsubmit="return handleForm(this)" enctype="multipart/form-data"
+        class="mt-8 space-y-6">
+
+        <div class="space-y-2">
+          <label for="title" class="block text-white">Blog Title</label>
+          <input type="text" id="title" class="form-control form-control-lg" />
+          <p class="text-red-500" id="titlee"></p>
+        </div>
+
+        <div class="space-y-2">
+          <label for="description" class="block text-white">Description</label>
+          <input type="text" id="description" name="description" class="form-control" />
+          <p class="text-red-500" id="descriptionError"></p>
+        </div>
+
+        <input type="text" name="date" id="dateInput" hidden />
+
+        <input type="text" name="username" value="<%=user.name%>" hidden />
+
+        <div class="space-y-2">
+          <label for="customFile" class="block text-white">Upload File</label>
+          <input type="file" id="customFile" name="file" class="form-control" style="
+      color: white !important;" />
+          <p class="text-red-500" id="fileError"></p>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary text-white border-white">Add</button>
+        </div>
+
+      </form>
+    </div>
+  </center>
+
+  <%- include('../partials/footer.ejs') %>
+
+    <script>
+      function handleForm(e) {
+        let submit = true;
+        const title = e.elements.title;
+        const description = e.elements.description;
+        const fileInput = e.elements.file;
+
+        if (title.value === "") {
+          document.getElementById("titlee").innerHTML = "Please enter title";
+          submit = false;
+        } else {
+          document.getElementById("titlee").innerHTML = "";
+        }
+
+        if (description.value === "") {
+          document.getElementById("descriptionError").innerHTML = "Please enter description";
+          submit = false;
+        } else {
+          document.getElementById("descriptionError").innerHTML = "";
+        }
+
+        const file = fileInput.files[0];
+
+        if (!file) {
+          document.getElementById("fileError").innerHTML = "Please select a file";
+          submit = false;
+        } else {
+          document.getElementById("fileError").innerHTML = "";
+        }
+
+        return submit;
+      }
+
+      var currentdate = new Date();
+      var datetime = (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + "/" + currentdate.getFullYear() + "  " + currentdate.getHours() + ":" + currentdate.getMinutes();
+      document.getElementById('dateInput').value = datetime;
+    </script>
