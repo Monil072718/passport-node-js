@@ -143,7 +143,6 @@ app.post('/signup', async function(req, res) {
 });
 
   
-
 app.get('/login', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/add');
